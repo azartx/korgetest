@@ -4,6 +4,7 @@ import KeyAssignment
 import com.soywiz.korev.*
 import com.soywiz.korge.input.*
 import com.soywiz.korge.view.*
+import com.soywiz.korma.geom.*
 
 class PlayerCharacter(
     animations: PlayerAnimations, upKey: Key, downKey: Key, leftKey: Key, rightKey: Key
@@ -13,7 +14,7 @@ class PlayerCharacter(
         KeyAssignment(upKey, animations.spriteAnimationUp) { y -= it },
         KeyAssignment(downKey, animations.spriteAnimationDown) { y += it },
         KeyAssignment(leftKey, animations.spriteAnimationLeft) { x -= it },
-        KeyAssignment(rightKey, animations.spriteAnimationRight) { x += it },
+        KeyAssignment(rightKey, animations.spriteAnimationRight) { x += it }
     )
 
     /** Allows to know the appropriate moment to stop the movement animation. */
@@ -37,5 +38,10 @@ class PlayerCharacter(
             if (isMoving) stopAnimation()
             isMoving = anyMovement
         }
+    }
+
+    fun handleMouse(disp: Double, angle: Angle) {
+        x += disp * cos(angle)
+        y += disp * sin(angle)
     }
 }
