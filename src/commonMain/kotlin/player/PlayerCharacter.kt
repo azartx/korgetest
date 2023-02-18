@@ -41,7 +41,12 @@ class PlayerCharacter(
     }
 
     fun handleMouse(disp: Double, angle: Angle) {
-        x += disp * cos(angle)
-        y += disp * sin(angle)
+        val x = this.x + disp * cos(angle)
+        val y = this.y + disp * sin(angle)
+
+        println("Character moving coordinates - x: $x :: y: $y")
+
+        if (x in 0.0..((stage?.gameWindow?.width?.toDouble()?.minus(this.width * 2)) ?: 1160.0)) this.x = x
+        if (y in 0.0..(stage?.gameWindow?.height?.toDouble()?.minus(this.height * 2) ?: 620.0)) this.y = y
     }
 }

@@ -2,6 +2,7 @@ package stages
 
 import com.soywiz.klock.*
 import com.soywiz.korev.*
+import com.soywiz.korge.box2d.*
 import com.soywiz.korge.scene.*
 import com.soywiz.korge.view.*
 import com.soywiz.korma.geom.*
