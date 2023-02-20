@@ -1,15 +1,17 @@
 package input
 
 import com.soywiz.korev.*
+import com.soywiz.korge.scene.*
 import com.soywiz.korge.view.*
 import com.soywiz.korge.view.Circle
 import com.soywiz.korim.color.*
 import com.soywiz.korma.geom.*
+import kotlin.properties.*
 
 class TouchController(isVisibleByDefault: Boolean = false) : Circle(radius = 64.0) {
 
-    private val screenHeight = 720.0
-    private val screenWidth = 1200.0
+    private var screenWidth by Delegates.notNull<Double>()
+    private var screenHeight by Delegates.notNull<Double>()
 
     private var startMouseX = 0.0
     private var startMouseY = 0.0
@@ -25,10 +27,12 @@ class TouchController(isVisibleByDefault: Boolean = false) : Circle(radius = 64.
         visibility(isVisibleByDefault)
     }
 
-    fun attachToStage(view: Container, onUpdate: (Angle?) -> Unit) {
-        view.addChild(this)
-        view.addChild(control)
-        registerTouchListener(view, onUpdate)
+    fun attachToStage(scene: Scene, onUpdate: (Angle?) -> Unit) {
+        screenWidth = scene.sceneWidth.toDouble()
+        screenHeight = scene.sceneHeight.toDouble()
+        scene.sceneView.addChild(this)
+        scene.sceneView.addChild(control)
+        registerTouchListener(scene.sceneView, onUpdate)
     }
 
     private fun visibility(isVisible: Boolean) {

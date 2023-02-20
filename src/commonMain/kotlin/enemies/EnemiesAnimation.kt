@@ -1,4 +1,4 @@
-package player
+package enemies
 
 import com.soywiz.korge.view.SpriteAnimation
 import com.soywiz.korim.bitmap.*
@@ -6,12 +6,12 @@ import com.soywiz.korim.format.*
 import com.soywiz.korio.file.std.*
 import kotlin.native.concurrent.*
 
-class PlayerAnimations private constructor(characterBitmap: Bitmap) {
+class EnemiesAnimation private  constructor(characterBitmap: Bitmap) {
     @ThreadLocal()
     companion object {
-        private var instance: PlayerAnimations? = null
+        private var instance: EnemiesAnimation? = null
         suspend fun getInstance() = if (instance == null)
-            PlayerAnimations(resourcesVfs["character.png"].readBitmap()) else instance!!
+            EnemiesAnimation(resourcesVfs["character.png"].readBitmap()) else instance!!
     }
 
     val spriteAnimationLeft = SpriteAnimation(
@@ -53,4 +53,6 @@ class PlayerAnimations private constructor(characterBitmap: Bitmap) {
         columns = 4,
         rows = 1
     )
+
+    fun random() = listOf(spriteAnimationDown, spriteAnimationUp, spriteAnimationLeft, spriteAnimationRight).random()
 }
