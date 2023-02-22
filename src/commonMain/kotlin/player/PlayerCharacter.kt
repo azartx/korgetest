@@ -5,6 +5,7 @@ import com.soywiz.korev.*
 import com.soywiz.korge.input.*
 import com.soywiz.korge.view.*
 import com.soywiz.korma.geom.*
+import utils.Const.DEF_VIRTUAL_HEIGHT
 
 class PlayerCharacter(
     animations: PlayerAnimations, upKey: Key, downKey: Key, leftKey: Key, rightKey: Key
@@ -46,7 +47,7 @@ class PlayerCharacter(
 
         println("Character moving coordinates - x: $x :: y: $y")
 
-        if (x in 0.0..((stage?.gameWindow?.width?.toDouble()?.minus(this.width * 2)) ?: 1160.0)) this.x = x
-        if (y in 0.0..(stage?.gameWindow?.height?.toDouble()?.minus(this.height * 2) ?: 620.0)) this.y = y
+        if (x in 0.0..((stage?.width?.minus(this.width * 3)) ?: DEF_VIRTUAL_HEIGHT)) this.x = x
+        if (y in 0.0..(stage?.height?.minus(this.height * 2) ?: DEF_VIRTUAL_HEIGHT)) this.y = y
     }
 }
