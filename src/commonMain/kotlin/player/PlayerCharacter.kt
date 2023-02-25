@@ -61,9 +61,12 @@ class PlayerCharacter(
 
                     launch {
                         // bulletMoving
-                        while (bullet.x > 0 || bullet.x < stage?.width!! || bullet.y > 0 ||bullet.y < stage?.height!!) {
+                        while (bullet.x > 0 && bullet.x < stage?.width!! || bullet.y > 0 && bullet.y < stage?.height!!) {
                             delay(100)
                             bullet.position(bullet.x + 30 * cos(bulletAngle), bullet.y + 30 * sin(bulletAngle))
+                        }
+                        if (parent?.children?.contains(bullet) == true) {
+                            parent?.removeChild(bullet)
                         }
                     }
                 }
@@ -98,16 +101,16 @@ class PlayerCharacter(
         if (y in 0.0..(stage?.height?.minus(this.height * 2) ?: DEF_VIRTUAL_HEIGHT)) this.y = y
 
         when {
-            angle.degrees > 180 && angle.degrees < 360 -> {
+            angle.degrees > 225 && angle.degrees < 315 -> {
                 playAnimation(animations.spriteAnimationUp)
             }
-            angle.degrees > 90 && angle.degrees < 270 -> {
+            angle.degrees > 135 && angle.degrees < 225 -> {
                 playAnimation(animations.spriteAnimationLeft)
             }
-            angle.degrees > 0 && angle.degrees < 180 -> {
+            angle.degrees > 45 && angle.degrees < 135 -> {
                 playAnimation(animations.spriteAnimationDown)
             }
-            angle.degrees > 270 || angle.degrees < 90 -> {
+            angle.degrees > 315 && angle.degrees < 360 || angle.degrees > 0 && angle.degrees < 45 -> {
                 playAnimation(animations.spriteAnimationRight)
             }
         }
